@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PynqSharp
 {
-    class Interrupt
+    public class Interrupt
     {
     }
 }

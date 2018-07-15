@@ -7,7 +7,7 @@ using PynqSharp.Util;
 
 namespace PynqSharp
 {
-    class Mmio
+    public class Mmio
     {
         public int VirtBase { get; set; }
         public int VirtOffset { get; set; }
@@ -15,6 +15,7 @@ namespace PynqSharp
         public int Length { get; set; }
         public int MmapFile { get; set; }   
         public IntPtr Mem { get; set; }
+        public Memory<uint> _Array { get; set; }
 
         public Mmio(int baseAddr, int length = 4)
         {
@@ -36,6 +37,12 @@ namespace PynqSharp
             Mem = Mmap.mmap(IntPtr.Zero, Length + VirtOffset,
                 Mmap.MemoryMappedProtections.PROT_READ | Mmap.MemoryMappedProtections.PROT_WRITE,
                 Mmap.MemoryMappedFlags.MAP_SHARED, MmapFile, VirtBase);
+
+            unsafe
+            {
+                Span<uint> span = new Span<uint>(Mem.ToPointer(), Length);
+                _Array = new Memory<uint>(span.ToArray());
+            }
         }
 
         public int Read(int offset = 0, int length = 4)

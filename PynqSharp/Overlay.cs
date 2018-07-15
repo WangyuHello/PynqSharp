@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PynqSharp
 {
-    class Overlay
+    public class Overlay
     {
     }
 }

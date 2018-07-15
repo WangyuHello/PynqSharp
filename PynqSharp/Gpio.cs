@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace PynqSharp
 {
-    class Gpio
+    public class Gpio
     {
         private const int GpioMinUserPin = 54;
 
